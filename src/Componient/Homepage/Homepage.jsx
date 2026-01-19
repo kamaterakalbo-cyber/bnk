@@ -96,7 +96,7 @@ const Homepage = () => {
               <span className="apy">APY*</span>
               <p className="yeild">HIGH YIELD SAVINGS</p>
               <span className="highyiled">High Yield Savings Rate</span>
-              <p className="futured">FEATURED</p>
+              <p className="futured1">FEATURED</p>
             </div>
           </div>
           <div>
@@ -106,7 +106,7 @@ const Homepage = () => {
               <span className="apy">APY*</span>
               <p className="yeild">HIGH YIELD SAVINGS</p>
               <span className="highyiled">High Yield Savings Rate</span>
-              <p className="futured">FEATURED</p>
+              <p className="futured2">SAVINGS</p>
             </div>
           </div>
           <div>
@@ -116,7 +116,7 @@ const Homepage = () => {
               <span className="apy">APY*</span>
               <p className="yeild">HIGH YIELD SAVINGS</p>
               <span className="highyiled">High Yield Savings Rate</span>
-              <p className="futured">FEATURED</p>
+              <p className="futured3">CREDIT</p>
             </div>
           </div>
           <div>
@@ -126,7 +126,7 @@ const Homepage = () => {
               <span className="apy">APY*</span>
               <p className="yeild">HIGH YIELD SAVINGS</p>
               <span className="highyiled">High Yield Savings Rate</span>
-              <p className="futured">FEATURED</p>
+              <p className="futured4">MORTGAGE</p>
             </div>
           </div>
         </div>

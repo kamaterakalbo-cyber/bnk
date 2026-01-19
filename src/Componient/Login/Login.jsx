@@ -66,34 +66,36 @@ const Login = () => {
                   </div>
                 </div>
 
-                <div>
+                <div className="seconds">
                   <form action="">
-                    <p>Sign In</p>
-                    <span>Access your West Vent Online Bank account</span>
+                    <p className="signin">Sign In</p>
+                    <span className="topis">Access your West Vent Online Bank account</span>
 
                     <div className="formslogin">
                         <div>
                             <label htmlFor="Email Address or Username">Email Address or Username</label>
-                            <input type="text" name="username" id="username" />
+                            <input type="text" name="username" id="username" placeholder="Enter Your email address" />
                         </div>
                         <div>
-                            <div>
+                            <div className="mylabel">
                                 <label htmlFor="Password">Password</label>
                                 <span>Forgot Password?</span>
+                               
                             </div>
+                             <input type="password" name="password" id="password" placeholder="Enter your password" />
                         </div>
                     </div>
                     <div className="satyligin">
-                        <input type="checkbox" name="" id="" />
+                        <div><input type="checkbox" name="" id="" /></div>
                         <span>Keep me signed in</span>
                     </div>
 
-                    <div className="signin">
+                    <div className="signinp">
                         <button><FaSignInAlt/> Sign In to Account</button>
                     </div>
-                        <p>New to West Vent Online Bank?</p>
+                        <p className="neswest">New to West Vent Online Bank?</p>
 
-                      <div className="signin">
+                      <div className="signins">
                         <button><IoIosPersonAdd/> Create New Account</button>
                     </div>
                     </form>  

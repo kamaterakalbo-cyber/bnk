@@ -132,4 +132,32 @@ input::placeholder {
     border-radius: 8px;
     cursor: pointer;
 }
+
+.last{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    margin-top: 10px;
+}
+.last span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    opacity: .7;
+}
+
+.lastlast{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: fit-content; */
+    margin: auto;
+    font-size: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
 `

@@ -4,8 +4,6 @@ import {  FaMoneyBillTransfer } from "react-icons/fa6";
 import { RiSecurePaymentLine } from "react-icons/ri";
 import { FaSignInAlt } from "react-icons/fa";
 import { IoIosPersonAdd } from "react-icons/io";
-import { BiSupport } from "react-icons/bi";
-import { IoTerminal } from "react-icons/io5";
 import {Craeteaccount} from './Openaccunt'
 import { CiGlobe } from "react-icons/ci";
 import { MdOutlineAccessTime } from "react-icons/md";
@@ -127,16 +125,7 @@ const Openaccunt = () => {
                       </button>
                     </div>
                   </form>
-                  <div className="last">
-                    <span><RiSecurePaymentLine/> Security</span>
-                    <span><BiSupport/> Support</span>
-                    <span><IoTerminal/> Terms</span>
-         
-        
-                  </div>
-                  <div className="lastlast">
-                    <span>By signing in, you agree to our Terms of Service and Privacy Policy. Your data is protected with bank-grade security.</span>
-                  </div>
+
                 </div>
               </div>
         </Craeteaccount>

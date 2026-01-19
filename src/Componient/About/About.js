@@ -269,4 +269,56 @@ padding: 20px 0px;
     gap: 10px;
 
 }
+
+
+
+
+
+
+
+
+
+
+.joinourfamily{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0px;
+    gap: 7px;
+}
+
+.joinourfamily h1{
+    font-size: 15px;
+}
+
+.joinourfamily p{
+    font-size: 13px;
+    opacity: .7;
+    margin-bottom: 20px;
+}
+
+.btn{
+    display: flex;
+    gap: 20px;
+}
+
+.btn button{
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    background-color: #0284c7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.btn button:hover{
+     background-color: #2495ce;
+}
 `
+

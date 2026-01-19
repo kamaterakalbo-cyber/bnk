@@ -6,6 +6,10 @@ import { RiSecurePaymentFill } from "react-icons/ri";
 import { FaLightbulb } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
 import { RiUserCommunityFill } from "react-icons/ri";
+import { IoMdCall } from "react-icons/io";
+import { IoIosPersonAdd } from "react-icons/io";
+
+
 
 
 
@@ -142,6 +146,17 @@ const About = () => {
                         <p>99.9%</p>
                         <span>Uptime Guarantee</span>
                     </div>
+                </div>
+            </div>
+
+
+
+            <div className="joinourfamily">
+                <h1>Ready to Join Our Family?</h1>
+                <p>Experience the difference of banking with a trusted partner who puts your financial success first.</p>
+                <div className="btn">
+                    <button><IoIosPersonAdd/> Open an Account</button>
+                    <button><IoMdCall/> Contact Us</button>
                 </div>
             </div>
 

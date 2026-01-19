@@ -16,10 +16,13 @@ const Login = () => {
   return (
     <Logon>
       <div className="mainlogin">
+
         <div className="first">
-          <span>
-            <img src={Logo} alt="Logo" />
-          </span>
+          <div className="imagspan">
+           <div>
+             <img src={Logo} alt="Logo" />
+           </div>
+          </div>
           <div className="heade">
             <h1>Welcome Back</h1>
             <p>West Vent Online Bank</p>

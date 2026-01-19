@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 
 export const Nav = styled.nav`
+font-family: "Zalando Sans Expanded", sans-serif;
 
 background-color: #f2faff;
 text-transform: capitalize;
@@ -40,7 +41,12 @@ ul{
     align-items: center;
     gap: 25px;
     cursor: pointer;
-    font-size: 18px;
+     font-size: 15px;
+}
+
+li:hover{
+ color: #106f9e;
+
 }
 
 .navright{
@@ -54,7 +60,7 @@ ul{
 
 .navright span{
 color:#0488cb ;
-font-size: 18px;
+font-size: 16px;
 }
 .navright button{
     padding: 8px 16px;

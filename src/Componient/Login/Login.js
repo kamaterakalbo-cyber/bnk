@@ -14,8 +14,86 @@ font-family: "Zalando Sans Expanded", sans-serif;
     color: white;
     flex: 1;
     padding: 90px 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
     
 }
+
+.imagspan{
+    background-color: #4599c6;
+    padding: 10px 10px;
+    border-radius: 10px;
+    width: fit-content;
+    margin-bottom: 10px;
+}
+
+.imagspan div{
+    width: 120px;
+}
+
+.imagspan div img{
+  width: 100%;
+}
+
+
+.heade{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.heade p{
+    font-size: 14px;
+    font-size: 500;
+}
+.heade span{
+    font-size: 13px;
+    opacity: .8;
+    font-size: 600;
+}
+
+
+.boxss{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+
+.boxmaon{
+
+    display: flex;
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    align-items: center;
+    gap: 10px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    font-size: 13px;
+    background-color: #1c83ba;
+}
+
+.icos{
+    font-size: 20px;
+    padding: 7px 7px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #499cc8;
+}
+
+
+
+
+
+
 
 .seconds{
     flex: 1;

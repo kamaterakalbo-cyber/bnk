@@ -405,7 +405,7 @@ font-weight: 700;
     width: 90%;
     margin: 2rem auto;
     display: flex;
-    gap: 20px;
+    gap: 35px;
 }
 
 .Financial{
@@ -426,7 +426,7 @@ border-radius: 10px;
 .Financialbuilding{
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 15px;
     /* justify-content: center; */
     /* align-items: center; */
 }
@@ -448,7 +448,7 @@ border-radius: 10px;
 }
 .businesss h1{
     color: #14753b;
-    font-size: 25px;
+    font-size: 30px;
 }
 .businesss p{
     opacity: .7;

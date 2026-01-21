@@ -10,15 +10,6 @@ import { IoMdCall } from "react-icons/io";
 import { IoIosPersonAdd } from "react-icons/io";
 
 
-
-
-
-
-
-
-
-
-
 const About = () => {
     return(
         <Aboutus>

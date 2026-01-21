@@ -33,6 +33,7 @@ width: 100%;
     font-size: 14px;
     gap: 10px;
     padding: 20px;
+    text-align: center;
 }
 
 .mainaboutus span{
@@ -319,6 +320,28 @@ padding: 20px 0px;
 
 .btn button:hover{
      background-color: #2495ce;
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 815px){
+   
+    .Ourmission{
+    width: 95%;
+    flex-direction: column;
+}
+
+.imge{
+    width: 100%;
+}
+
+
 }
 `
 

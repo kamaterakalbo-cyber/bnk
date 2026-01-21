@@ -168,9 +168,9 @@ height: auto;
 
 
 .rate-box{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
     gap: 10px;
     margin-top: 30px;
 
@@ -768,6 +768,31 @@ text-align: center;
 .Financial{
 
     width: 100%;
+
+}
+
+
+
+.howtohlepyoubox{
+    width: 95%;
+    grid-template-columns: repeat(2, 1fr);
+
+}
+
+
+.homepage-body{
+
+    width: 95%;
+}
+
+.rate-box{
+    grid-template-columns: repeat(2, 1fr);    
+}
+
+.Rountine{
+    flex-direction: column;
+    /* width: fit-content; */
+    
 
 }
 }

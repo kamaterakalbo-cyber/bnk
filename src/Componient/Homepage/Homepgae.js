@@ -69,7 +69,7 @@ height: auto;
     font-weight: 500;
 }
 
-.Rountine{
+.Rountine, .Rountineout{
     color: white;
     display: flex;
     margin-top: 30px;
@@ -703,6 +703,19 @@ margin: auto;
         width: 100%;
         
     }
+    .Rountineout{
+        width: 95%;
+        margin: 2rem auto;
+        display: block;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        
+    }
+
+    .Rountine{
+        display: none;
+    }
 
     .homepage-topic h2{
     font-weight: 900;
@@ -795,11 +808,6 @@ text-align: center;
     grid-template-columns: repeat(2, 1fr);    
 }
 
-.Rountine{
-    flex-direction: column;
-    /* width: fit-content; */
-    
 
-}
 }
 `

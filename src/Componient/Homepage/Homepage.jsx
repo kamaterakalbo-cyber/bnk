@@ -81,6 +81,32 @@ const Homepage = () => {
         </div>
       </div>
 
+                <div className="Rountineout">
+            <div className="box-same">
+              <div className="writeup">
+                <p>ROUTING #</p>
+                <p>251480576</p>
+              </div>
+              <div><CiBank/></div>
+            </div>
+            <div className="box-same">
+              <div className="writeup">
+                <p>RANCH HOURS</p>
+                <p>Mon-Fri: 9AM-5PM</p>
+                <p>Sat: 9AM-1PM</p>
+              </div>
+              <div><FcAbout/></div>
+            </div>
+            <div className="box-same">
+              <div className="writeup">
+                <p>24/7 SUPPORT</p>
+                <p>1-800-BANKING</p>
+                <p>Always here to help</p>
+              </div>
+              <div><IoMdCall/></div>
+            </div>
+          </div>
+
       <div className="homepage-body">
         <div className="onliebank">
           <p className="westbank">West Vent Online Bank Rates</p>

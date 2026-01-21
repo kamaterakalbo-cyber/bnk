@@ -356,8 +356,9 @@ padding: 20px 0px;
 
 .valibox{
    width: 100%;
-   grid-template-columns: repeat(2, 1fr);
+   grid-template-columns: repeat(1, 1fr);
    text-align: center;
+   gap: 50px;
 }
 
 .boxxes{
@@ -390,7 +391,7 @@ padding: 20px 0px;
 }
 
 .bythnumberbox{
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: 10px;
     width: 100%;
 }

@@ -34,7 +34,7 @@ width: 100%;
     margin-top: 60px;
     font-size: 14px;
     gap: 10px;
-    padding: 20px;
+    padding: 20px 0px;
 }
 
 .mainaboutus span{
@@ -241,4 +241,31 @@ label{
     font-weight: 400;
 }
 
+
+
+
+
+
+
+@media screen and (max-width: 815px){
+   
+    .mainaboutus{
+        text-align: center;
+    }
+
+
+    .contactform{
+        width: 95%;
+        flex-direction: column-reverse;
+        gap: 60px;
+    }
+
+    .firsdiv, .seconddiv{
+        width: 100%;
+    }
+
+    form{
+        width: 100%;
+    }
+}
 `

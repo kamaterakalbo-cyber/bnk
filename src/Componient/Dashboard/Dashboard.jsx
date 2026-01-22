@@ -55,7 +55,9 @@ const Dashbaord = () => {
                 <div className="accoutninfo">
                    <div className="names">
                     <p>West Vest Online Bank</p>
-                    <p>Account</p>
+                    <p>  {fetchdata?.account?.account_number
+    ? `****${fetchdata.account.account_number.toString().slice(-4)}`
+    : ""}</p>
                    </div>
 
                    <div className="banaces">
@@ -92,8 +94,8 @@ const Dashbaord = () => {
 
 <div className="cartds">
     <div>
-        <span><CiLock/></span>
-        <p>Card Unlocked</p>
+        <span onClick={() => window.location.href = '/card-lock'}><CiLock/></span>
+        <p onClick={() => window.location.href = '/card-lock'}>Card Unlocked</p>
     </div>
     <div>
         <span onClick={() => window.location.href = '/direct-deposit'}><IoIosFlash/></span>

@@ -120,7 +120,7 @@ const Dashbaord = () => {
     </div>
         <div>
         <span onClick={() => window.location.href = '/contactus'}><FiHelpCircle/></span>
-        <p onClick={() => window.location.href = '/contactus'}>Help</p>
+        <p onClick={() => window.location.href = '/contactus'}>Get Help</p>
     </div>
 
     

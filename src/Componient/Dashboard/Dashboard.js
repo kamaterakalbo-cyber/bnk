@@ -161,6 +161,9 @@ cursor: pointer;
 
 
 
+.quicttransfer{
+    padding: 20px 0px;
+}
 
 .trasferquick{
     /* padding: 10px 0px; */

@@ -13,6 +13,7 @@ import ProfileNav from './Componient/Dashboard/ProfileNav.jsx'
 import Directdeposit from './Componient/Dashboard/Directdeposit.jsx'
 import Cardlock from './Componient/Dashboard/Cardlock.jsx'
 import ProtectedRoute from './Componient/ProtectedRoute.jsx'
+import Contactus from './Componient/Dashboard/Contactus.jsx'
 
 
 
@@ -30,8 +31,9 @@ function App() {
       <Route path='/' element={!token ? <Homepage /> : <Navigate to="/profile" replace />}/>
       <Route path='/login' element={!token ? <Login/> : <Navigate to="/profile" replace />}/>
       <Route path='/profile' element={<ProtectedRoute><Dashbaord/></ProtectedRoute>}/>
-      <Route path='/direct-deposit' element={<Directdeposit><Dashbaord/></Directdeposit>}/>
-      <Route path='/card-lock' element={<Cardlock/>}/>
+      <Route path='/direct-deposit' element={<ProtectedRoute><Directdeposit/></ProtectedRoute>}/>
+      <Route path='/card-lock' element={<ProtectedRoute><Cardlock/></ProtectedRoute>}/>
+      <Route path='contactus' element={<ProtectedRoute><Contactus/></ProtectedRoute>}/>
       <Route path='/about-us' element={<About/>}/>
       <Route path='/open-account' element={!token ? <Openaccunt/> : <Navigate to="/profile" replace />}/>
       <Route path='/contact-us' element={<Contact/>}/>

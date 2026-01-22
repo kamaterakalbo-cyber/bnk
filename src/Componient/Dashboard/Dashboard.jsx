@@ -9,6 +9,10 @@ import { FaCreditCard } from "react-icons/fa";
 import useDashboard from  './apifetch'
 import { CiLock } from "react-icons/ci";
 import { TbTransactionDollar , TbShieldDollar} from "react-icons/tb";
+import { FiHelpCircle } from "react-icons/fi";
+import { FaLocationDot } from "react-icons/fa6";
+
+
 
 
 
@@ -109,7 +113,21 @@ const Dashbaord = () => {
         <span><TbShieldDollar/></span>
         <p>Overdraft Protection</p>
     </div>
+
+        <div>
+        <span><FaLocationDot/></span>
+        <p>ATM & Cast Deposit Map</p>
+    </div>
+        <div>
+        <span onClick={() => window.location.href = '/contactus'}><FiHelpCircle/></span>
+        <p onClick={() => window.location.href = '/contactus'}>Help</p>
+    </div>
+
+    
 </div>
+
+
+
 
                 <div className="quicttransfer">
                     <p className="trasferquick">Quick Transfer</p>

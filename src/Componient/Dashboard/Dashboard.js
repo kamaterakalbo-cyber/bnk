@@ -27,14 +27,15 @@ height: auto;
 .names{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .names p:first-child{
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .names p:nth-child(2){
-    font-size: 12px;
+    font-size: 15px;
 }
 
 
@@ -47,7 +48,7 @@ height: auto;
     gap: 8px;
 }
 .banaces p{
-    font-size: 12px;
+    font-size: 14px;
 }
 .banaces span{
     font-size: 25px;
@@ -65,13 +66,14 @@ height: auto;
 .acives {
     display: flex;
     gap: 5px;
-    font-size: 12px;
+    
 }
 .acives span{
     color: green;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 14px;
 }
 
 
@@ -285,18 +287,18 @@ width: 95%;
     }
 
     .names p:nth-child(1){
-        font-size: 12px;
+        font-size: 15px;
     }
     
     .names p:nth-child(2){
-        font-size: 10px;
+        font-size: 14px;
     }
 
     .actives p:nth-child(1){
-        font-size: 10px;
+        font-size: 12px;
     }
     .actives p:nth-child(2){
-        font-size: 10px;
+        font-size: 12px;
     }
     
 }

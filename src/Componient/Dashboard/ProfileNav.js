@@ -66,12 +66,15 @@ export const Nav = styled.main`
     padding: 10px 10px;
     border-radius: 7px;
     width: 150px;
+    z-index: 9999;
   }
 
   .dropdown span {
     font-size: 16px;
     cursor: pointer;
-    margin-block: 5px;
+    margin-block: 15px;
+    text-transform: uppercase;
+
   }
 
   /* ================================== */

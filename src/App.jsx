@@ -15,6 +15,7 @@ import Cardlock from './Componient/Dashboard/Cardlock.jsx'
 import ProtectedRoute from './Componient/ProtectedRoute.jsx'
 import Contactus from './Componient/Dashboard/Contactus.jsx'
 import FindAtm from './Componient/Dashboard/Findatmlocation.jsx'
+import Overdraftprotection from './Componient/Dashboard/Overdraftprotection.jsx'
 
 
 
@@ -34,8 +35,9 @@ function App() {
       <Route path='/profile' element={<ProtectedRoute><Dashbaord/></ProtectedRoute>}/>
       <Route path='/direct-deposit' element={<ProtectedRoute><Directdeposit/></ProtectedRoute>}/>
       <Route path='/card-lock' element={<ProtectedRoute><Cardlock/></ProtectedRoute>}/>
-      <Route path='contactus' element={<ProtectedRoute><Contactus/></ProtectedRoute>}/>
+      <Route path='/contactus' element={<ProtectedRoute><Contactus/></ProtectedRoute>}/>
       <Route path='/find-atm' element={<ProtectedRoute><FindAtm/></ProtectedRoute>}/>
+      <Route path='/overdraft-protection' element={<ProtectedRoute><Overdraftprotection/></ProtectedRoute>}/>
       <Route path='/about-us' element={<About/>}/>
       <Route path='/open-account' element={!token ? <Openaccunt/> : <Navigate to="/profile" replace />}/>
       <Route path='/contact-us' element={<Contact/>}/>

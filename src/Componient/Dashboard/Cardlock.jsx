@@ -57,7 +57,7 @@ const Cardlock = () => {
 
   <p className="mones">Monthly fees will continue on locked cards.</p>
 
-  <p className="margto">If you lost your card or believe it has been stolen, click here.</p>
+  <p className="margto">If you lost your card or believe it has been stolen, <span style={{textDecoration: 'underline', color: 'blue', cursor: "pointer"}} onClick={() => window.location.href = '/contactus'}> click here</span>.</p>
 
   <p className="loststs">A lost/stolen card replacement fee may apply.</p>
 </section>

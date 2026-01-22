@@ -11,6 +11,7 @@ export const Nav = styled.main`
     align-items: center;
     color: white;
     padding: 10px 0px;
+    cursor: pointer;
   }
 
   .right {

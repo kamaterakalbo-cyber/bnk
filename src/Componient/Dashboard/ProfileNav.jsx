@@ -22,7 +22,7 @@ const ProfileNav = () => {
   return (
     <Nav>
       <div className="navbars">
-        <div className="left">
+        <div className="left" onClick={() => window.location.href = '/profile'} >
           <img src={Logo} alt="" />
         </div>
 

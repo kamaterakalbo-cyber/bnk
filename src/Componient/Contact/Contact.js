@@ -98,6 +98,7 @@ textarea{
     width: 100%;
     padding: 10px 10px;
     height: 100px;
+    font-size: 16px;
 }
 textarea::placeholder{
      color: #999;
@@ -212,8 +213,6 @@ label{
     background-color: #ffedd5;
     font-size: 18px;
 }
-
-
 
 
 

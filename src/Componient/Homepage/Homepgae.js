@@ -307,10 +307,6 @@ font-weight: 700;
     align-items: center;
 }
 
-.rate-box div:hover{
-    transform: scale(1.1);
-    transition: 2s ease-in-out;
-}
 
 
 .AnnualPercentage{

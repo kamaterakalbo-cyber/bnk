@@ -128,7 +128,7 @@ const [message, setMessage] = useState(false)
 
             <div className="formslogin">
               <div>
-                <label htmlFor="Email Address or Username">
+                <label htmlFor="username">
                    User ID
                 </label>
                 <input

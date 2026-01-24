@@ -15,7 +15,7 @@ const ProfileNav = () => {
   };
 
   const Logout = () => {
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("accessToken");
     window.location.href = "/login";
   };
 

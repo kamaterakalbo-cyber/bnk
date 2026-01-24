@@ -14,20 +14,18 @@ import { IoTerminal } from "react-icons/io5";
 
 const Login = () => {
 
-const [message, setMessage] = useState(false)
+const [message, setMessage] = useState(false);
 
-  const [formData, setFormData]= useState({
-    "username": "",
-    "password": ""
-  })
+const [formData, setFormData] = useState({
+  username: "",
+  password: "",
+});
 
-  const Handlesumit = async (e) => {
-    e.preventDefault();
+const Handlesumit = async (e) => {
+  e.preventDefault();
 
-
-
-      try {
-    const res = await fetch("http://127.0.0.1:8000/api/login/", {
+  try {
+    const res = await fetch("https://geochain.app/api/api/login/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,22 +36,29 @@ const [message, setMessage] = useState(false)
     const data = await res.json();
     console.log(data);
 
-// localStorage.setItem("authToken")
     if (!res.ok) {
-      alert(data.message || "login failed");
+      alert(data.detail || "login failed");
       return;
     }
-  localStorage.setItem("authToken", data.token);
 
+    // ✅ SAVE JWT TOKENS CORRECTLY
+    localStorage.setItem("accessToken", data.access);
+    localStorage.setItem("refreshToken", data.refresh);
 
     setMessage(true);
+
     setTimeout(() => {
-      window.location.href = '/profile'
+      window.location.href = "/profile";
     }, 3000);
+
   } catch (err) {
     alert("Server error");
   }
-  }
+};
+
+
+
+
   return (
     <Logon>
       <div className="mainlogin">

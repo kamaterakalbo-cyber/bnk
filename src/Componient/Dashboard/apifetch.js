@@ -1,38 +1,55 @@
-  import { useEffect, useState } from "react";
-  
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+const useDashboard = () => {
+  const [fetchdata, setFetchdata] = useState(null);
+  const navigate = useNavigate();
 
-  const useDashboard = () => {
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
 
-      const [fetchdata, setFetchdata] = useState(null);
-useEffect(() => {
-  const token = localStorage.getItem("authToken");
-// https://geochain.app/api/api/
-// https://geochain.app/api/
-  fetch("https://geochain.app/api/api/account/dashboard", {
-    headers: {
-      Authorization: `Token ${token}`,
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Please check your internet server");
+    if (!token) {
+      localStorage.clear();
+      navigate("/login", { replace: true }); // immediate redirect
+      return;
+    }
+
+    // Optional: check token expiry
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      if (payload.exp * 1000 < Date.now()) {
+        localStorage.clear();
+        navigate("/login", { replace: true });
+        return;
       }
-      return res.json();
-    })
-    .then((data) => {
-      console.log("Dashboard data:", data);
-      setFetchdata(data);
-    })
-    .catch((error) => console.log(error));
-}, []);
+    } catch {
+      localStorage.clear();
+      navigate("/login", { replace: true });
+      return;
+    }
 
-return fetchdata
-  };
+    fetch("https://geochain.app/api/api/account/dashboard", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          localStorage.clear();
+          navigate("/login", { replace: true });
+          return;
+        }
+        if (!res.ok) throw new Error("Please check your internet server");
+        return res.json();
+      })
+      .then((data) => {
+        if (data) setFetchdata(data);
+      })
+      .catch((error) => console.log(error));
+  }, [navigate]);
+
+  return fetchdata;
+};
+
 export default useDashboard;
-
-
-
-
-

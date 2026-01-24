@@ -9,24 +9,34 @@ const Transaction = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const token = localStorage.getItem("authToken");
-        if (!token) throw new Error("No auth token found");
+        const token = localStorage.getItem("accessToken");
+
+        if (!token) {
+          localStorage.clear(); // clear expired or missing token
+          window.location.href = "/login"; // redirect immediately
+          return;
+        }
 
         const res = await fetch(
           "https://geochain.app/api/api/transactions/history/",
           {
             headers: {
-              Authorization: `Token ${token}`,
+              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
-          },
+          }
         );
+
+        if (res.status === 401) {
+          // token expired or invalid
+          localStorage.clear();
+          window.location.href = "/login";
+          return;
+        }
 
         if (!res.ok) throw new Error("Please check your internet server");
 
         const data = await res.json();
-        console.log("Transaction data:", data);
-        // setTrasactions(Array.isArray(data) ? data : []);
         setTrasactions(data);
       } catch (err) {
         console.error(err);
@@ -37,7 +47,6 @@ const Transaction = () => {
 
     fetchTransactions();
   }, []);
-
   return (
     <Transactions>
       <div className="transactiosn">
@@ -75,13 +84,9 @@ const Transaction = () => {
 >
   {tr.transaction_type.toUpperCase()}
 </span>
-{tr.transaction_type === "credit" && (
-  <p>From: {tr.receiver_bank || "External Bank"}</p>
-)}
+{tr.transaction_type === "credit" && <p>From: {tr.receiver_bank || "External Bank"}</p>}
+{tr.transaction_type === "debit" && <p>To: {tr.receiver_bank  || "External Bank"}</p>}
 
-{tr.transaction_type === "debit" && (
-  <p>To: {tr.receiver_bank}</p>
-)}
 
 
                       <span>Desc: {tr.purpose}</span>

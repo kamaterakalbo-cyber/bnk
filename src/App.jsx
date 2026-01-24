@@ -20,12 +20,13 @@ import Overdraftprotection from './Componient/Dashboard/Overdraftprotection.jsx'
 import Transaction from './Componient/Dashboard/Transaction.jsx'
 import Accountprofile from './Componient/Dashboard/Accountprofile.jsx'
 import Wiretransfer from './Componient/Dashboard/Wiretransfer.jsx'
+import Localtransfer from './Componient/Dashboard/Localtransfer.jsx'
 
 
 
 function App() {
 
-  const token = localStorage.getItem("authToken")
+  const token = localStorage.getItem("accessToken")
 
   return (
     <>
@@ -46,6 +47,7 @@ function App() {
       <Route path='/overdraft-protection' element={<ProtectedRoute><Overdraftprotection/></ProtectedRoute>}/>
       <Route path='/transfer-list' element={<ProtectedRoute><Transferlist/></ProtectedRoute>}/>
       <Route path='/wire-transfer' element={<ProtectedRoute><Wiretransfer/></ProtectedRoute>}/>
+      <Route path='/local-bank-transfer' element={<ProtectedRoute><Localtransfer/></ProtectedRoute>}/>
       <Route path='/about-us' element={<About/>}/>
       <Route path='/open-account' element={!token ? <Openaccunt/> : <Navigate to="/profile" replace />}/>
       <Route path='/contact-us' element={<Contact/>}/>

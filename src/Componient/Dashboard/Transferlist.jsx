@@ -18,7 +18,7 @@ const Transferlist = () => {
 <div onClick={() => window.location.href = '/wire-transfer'} >
   <p>Wire Transfer</p>
 </div>
-<div>
+<div onClick={() => window.location.href = '/local-bank-transfer'}>
   <p>Local Bank Transfer</p>
 </div>
 

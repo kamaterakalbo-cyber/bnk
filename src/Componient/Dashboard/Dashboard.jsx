@@ -150,10 +150,10 @@ const Dashbaord = () => {
           <div className="quicktransfrbox">
             <div className="myowns">
               <div className="addes">
-                <span>
+                <span onClick={() => window.location.href = '/transfer-list'}>
                   <IoAddSharp />
                 </span>
-                <p>Add New</p>
+                <p onClick={() => window.location.href = '/transfer-list'}>Add New</p>
               </div>
               <div className="addess">
                 <span>

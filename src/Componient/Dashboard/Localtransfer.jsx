@@ -6,7 +6,7 @@ import { FaArrowLeft } from "react-icons/fa";
 
 
 
-const Wiretransfer = () => {
+const Localtransfer = () => {
  
     const fetchdata = useDashboard();
 
@@ -27,7 +27,7 @@ const Wiretransfer = () => {
   const [showOtpModal, setShowOtpModal] = useState(false); // ✅ MISSING STATE
 
   // ✅ TRANSFER SUBMIT
- const handleTransferSubmit = async (e) => {
+const handleTransferSubmit = async (e) => {
   e.preventDefault();
   setError("");
   setLoading(true);
@@ -157,16 +157,11 @@ const handleOtpSubmit = async (e) => {
 
         </div>
         <div>
-                      <label>SWIFT / Routing Number</label>
+                      <label>Routing Number</label>
           <input value={swiftCode} onChange={(e) => setSwiftCode(e.target.value)} />
 
         </div>
- <div>
-              <label>Recipient Address</label>
-          <input value={recipientAddress} onChange={(e) => setRecipientAddress(e.target.value)} />
 
- </div>
-  
 
   <div>
               <label>Purpose of Transfer</label>
@@ -188,7 +183,7 @@ const handleOtpSubmit = async (e) => {
   </div>
         </form>
 
-        {showOtpModal && (
+             {showOtpModal && (
           <div className="otp-modal">
             <h3>Enter OTP Code</h3>
             <form onSubmit={handleOtpSubmit}>
@@ -211,4 +206,4 @@ const handleOtpSubmit = async (e) => {
   );
 };
 
-export default Wiretransfer;
+export default Localtransfer;

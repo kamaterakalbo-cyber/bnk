@@ -40,7 +40,7 @@ const Wiretransfer = () => {
       return;                     // stop execution
     }
 
-    const res = await fetch("https://geochain.app/api/api/transfers/", {
+    const res = await fetch("https://geochain.app/app/api/transfers/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ const handleOtpSubmit = async (e) => {
       return;
     }
 
-    const res = await fetch(`https://geochain.app/api/api/transfers/${transferId}/verify/`, {
+    const res = await fetch(`https://geochain.app/app/api/transfers/${transferId}/verify/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

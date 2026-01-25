@@ -1,17 +1,11 @@
 import React, { useState } from "react";
-import {WiretransferWrapper} from "./Wiretransfer"; 
-import useDashboard from './apifetch'
+import { WiretransferWrapper } from "./Wiretransfer";
+import useDashboard from "./apifetch";
 import { FaArrowLeft } from "react-icons/fa";
-
-
-
+import { MdOutlineClose } from "react-icons/md";
 
 const Wiretransfer = () => {
- 
-    const fetchdata = useDashboard();
-
-  const [balance] = useState(0); // temporary until fetched
-
+  const fetchdata = useDashboard();
 
   const [amount, setAmount] = useState("");
   const [receiverAccount, setReceiverAccount] = useState("");
@@ -27,103 +21,107 @@ const Wiretransfer = () => {
   const [showOtpModal, setShowOtpModal] = useState(false); // ✅ MISSING STATE
 
   // ✅ TRANSFER SUBMIT
-const handleTransferSubmit = async (e) => {
-  e.preventDefault();
-  setError("");
-  setLoading(true);
+  const handleTransferSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
-  try {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      localStorage.clear();      
-      window.location.href = "/login"; 
-      return;                     
+    try {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        localStorage.clear();
+        window.location.href = "/login";
+        return;
+      }
+
+      const res = await fetch("https://geochain.app/apps/api/transfers/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          amount: parseFloat(amount),
+          receiver_account: receiverAccount, // ✅ sending receiver account
+          receiver_name: receiverName,
+          receiver_bank: receiverBank,
+          swift_code: swiftCode,
+          purpose,
+          recipient_address: recipientAddress, // ✅ sending recipient address
+        }),
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || "Transfer failed");
+      }
+
+      const data = await res.json();
+      setTransferId(data.transfer_id);
+      setShowOtpModal(true);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const res = await fetch("https://geochain.app/apps/api/transfers/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        amount: parseFloat(amount),
-        receiver_account: receiverAccount,
-        receiver_name: receiverName,
-        receiver_bank: receiverBank,
-        swift_code: swiftCode,
-        purpose,
-      }),
-      // ✅ ensure token/cookies are sent if needed
-      credentials: 'include',
-    });
+  // ✅ OTP SUBMIT
+  const handleOtpSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.detail || "Transfer failed");
+    try {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        localStorage.clear();
+        window.location.href = "/login";
+        return;
+      }
+
+      const res = await fetch(
+        `https://geochain.app/apps/api/transfers/${transferId}/verify/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ verification_code: otpCode }),
+          // ✅ ensure token/cookies are sent if needed
+          credentials: "include",
+        },
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.detail || "OTP verification failed");
+      }
+
+      alert("Transfer verified. Pending approval.");
+      setShowOtpModal(false);
+      setOtpCode("");
+      window.location.href = "/transaction";
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-
-    const data = await res.json();
-    setTransferId(data.transfer_id);
-    setShowOtpModal(true);
-  } catch (err) {
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  }
-};
-
-// ✅ OTP SUBMIT
-const handleOtpSubmit = async (e) => {
-  e.preventDefault();
-  setError('');
-  setLoading(true);
-
-  try {
-    const token = localStorage.getItem('accessToken');
-    if (!token) {
-      localStorage.clear();
-      window.location.href = "/login";
-      return;
-    }
-
-    const res = await fetch(`https://geochain.app/apps/api/transfers/${transferId}/verify/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ verification_code: otpCode }),
-      // ✅ ensure token/cookies are sent if needed
-      credentials: 'include',
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.detail || 'OTP verification failed');
-    }
-
-    alert('Transfer verified. Pending approval.');
-    setShowOtpModal(false);
-    setOtpCode('');
-    window.location.href = '/transaction';
-
-  } catch (err) {
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  }
-};
-
-
+  };
 
   return (
     <WiretransferWrapper>
       <div className="profilewrapper">
         <div className="backes">
-          <FaArrowLeft onClick={() => window.location.href = '/transfer-list'} />
-        <p onClick={() => window.location.href = '/transfer-list'}>Transfer</p>
+          <FaArrowLeft
+            onClick={() => (window.location.href = "/transfer-list")}
+          />
+          <p onClick={() => (window.location.href = "/transfer-list")}>
+            Transfer
+          </p>
         </div>
 
         <div className="amount">
@@ -140,61 +138,86 @@ const handleOtpSubmit = async (e) => {
         </div>
 
         <form onSubmit={handleTransferSubmit}>
-         <div>
-             <label>From Account</label>
-          <input value={fetchdata?.account?.account_number} disabled />
-         </div>
+          <div>
+            <label>From Account</label>
+            <input value={fetchdata?.account?.account_number} disabled />
+          </div>
 
-         <div>
-                      <label>Receiver’s Account</label>
-          <input value={receiverAccount} onChange={(e) => setReceiverAccount(e.target.value)} required />
+          <div>
+            <label>Receiver’s Account</label>
+            <input
+              value={receiverAccount}
+              onChange={(e) => setReceiverAccount(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Receiver’s Full Name</label>
+            <input
+              value={receiverName}
+              onChange={(e) => setReceiverName(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Receiver’s Bank</label>
+            <input
+              value={receiverBank}
+              onChange={(e) => setReceiverBank(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>SWIFT / Iban</label>
+            <input
+              value={swiftCode}
+              onChange={(e) => setSwiftCode(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>Recipient Address</label>
+            <input
+              value={recipientAddress}
+              onChange={(e) => setRecipientAddress(e.target.value)}
+              required
+            />
+          </div>
 
-         </div>
-     <div>
-                  <label>Receiver’s Full Name</label>
-          <input value={receiverName} onChange={(e) => setReceiverName(e.target.value)} required />
+          <div>
+            <label>Purpose of Transfer</label>
+            <input
+              value={purpose}
+              onChange={(e) => setPurpose(e.target.value)}
+            />
+          </div>
 
-     </div>
-        <div>
-                      <label>Receiver’s Bank</label>
-          <input value={receiverBank} onChange={(e) => setReceiverBank(e.target.value)} required />
+          <div>
+            <label>Amount</label>
+            <input
+              type="number"
+              step="0.01"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              required
+            />
+          </div>
+          <div className="btn">
+            <button type="submit" disabled={loading}>
+              {loading ? "Processing..." : "Transfer"}
+            </button>
 
-        </div>
-        <div>
-                      <label>SWIFT / Routing Number</label>
-          <input value={swiftCode} onChange={(e) => setSwiftCode(e.target.value)} />
-
-        </div>
- <div>
-              <label>Recipient Address</label>
-          <input value={recipientAddress} onChange={(e) => setRecipientAddress(e.target.value)} />
-
- </div>
-  
-
-  <div>
-              <label>Purpose of Transfer</label>
-          <input value={purpose} onChange={(e) => setPurpose(e.target.value)} />
-
-  </div>
-
-<div>
-              <label>Amount</label>
-          <input type="number" step="0.01" value={amount} onChange={(e) => setAmount(e.target.value)} required />
-
-</div>
-  <div className="btn">
-              <button type="submit" disabled={loading}>
-            {loading ? "Processing..." : "Transfer"}
-          </button>
-
-          {error && <p style={{ color: "red" }}>{error}</p>}
-  </div>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+          </div>
         </form>
 
         {showOtpModal && (
           <div className="otp-modal">
-            <h3>Enter OTP Code</h3>
+            <div className="close">
+              <h3>Enter OTP Code</h3>
+              <p onClick={() => setShowOtpModal(false)}>
+                <MdOutlineClose />
+              </p>
+            </div>
             <form onSubmit={handleOtpSubmit}>
               <input
                 value={otpCode}
@@ -203,13 +226,53 @@ const handleOtpSubmit = async (e) => {
                 placeholder="6-digit code"
                 required
               />
-              <button className="mysumit" type="submit">{loading ? "Verifying..." : "Verify"}</button>
-              <button className="cancels" type="button" onClick={() => setShowOtpModal(false)}>
-                Cancel
+              <button className="mysumit" type="submit">
+                {loading ? "Verifying..." : "Verify"}
+              </button>
+              <button
+                className="cancels"
+                type="button"
+                onClick={async () => {
+                  if (!transferId) return; // safety check
+                  setLoading(true);
+                  setError("");
+                  try {
+                    const token = localStorage.getItem("accessToken");
+                    const res = await fetch(
+                      "https://geochain.app/apps/api/transfers/",
+                      {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({
+                          transfer_id: transferId,
+                          resend: true,
+                        }),
+                        credentials: "include",
+                      },
+                    );
+
+                    const data = await res.json();
+
+                    if (!res.ok)
+                      throw new Error(data.detail || "Failed to resend OTP");
+
+                    alert("OTP resent successfully. Check your email.");
+                  } catch (err) {
+                    setError(err.message);
+                  } finally {
+                    setLoading(false);
+                  }
+                }}
+              >
+                {loading ? "Sending..." : "Resend OTP"}
               </button>
             </form>
+            {error && <p style={{ color: "red" }}>{error}</p>}
           </div>
-         )} 
+        )}
       </div>
     </WiretransferWrapper>
   );

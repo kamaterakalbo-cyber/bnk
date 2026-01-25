@@ -83,6 +83,17 @@ label{
     border-radius: 8px;
 }
 
+.close{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.close p{
+    color: red;
+    font-size: 25px;
+    cursor: pointer;
+}
+
 .otp-modal h3{
     font-size: 15px;
     margin-block:5px;

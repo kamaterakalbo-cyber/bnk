@@ -16,131 +16,108 @@ import {
 const Openaccunt = () => {
   const [acreateaccount, setAcreateaccount] = useState("Personal");
 
+  const [message, setMessage] = useState(false);
 
+  const Countries = {
+    USA: "USA",
+    Canada: "Canada",
+    UK: "United Kingdom",
+    Australia: "Australia",
+    Germany: "Germany",
+  };
 
-
-  useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((res) => res.json())
-      .then((data) => {
-        const countryNames = data
-          .map((country) => country.name.common)
-          .sort((a, b) => a.localeCompare(b));
-
-        setCountries(countryNames);
-      });
-  }, []);
-
-
-const currencies = ["USD", "EUR", "GBP", "CAD", "AUD"];
-const accountTypes = ["Savings", "Current", "Business","Investment"];
-const Countries = [
-  "United States",      
-  "Canada",
-  "United Kingdom",
-  "Australia",
-  "Germany",
-  "Switzerland",
-  "Greenland",
-  "Austria",             
-  "Italy",
-  "France",
-  "Luxembourg",          
-  "Denmark",             
-];
-
+  const currencies = ["USD", "EUR", "GBP", "CAD", "AUD"];
+  const accountTypes = ["Savings", "Current", "Business", "Investment"];
 
   const [formData, setFormData] = useState({
-  first_name: "",
-  last_name: "",
-  middle_name: "",
-  username: "",
-  email: "",
-  phone: "",
-  country: "",
-  currency: "",
-  Account_Type: "",
-  pin: "",
-  password: "",
-  password1: "",
-  agree: false,
-});
+    first_name: "",
+    last_name: "",
+    middle_name: "",
+    username: "",
+    email: "",
+    phone: "",
+    country: "",
+    currency: "",
+    Account_Type: "",
+    pin: "",
+    password: "",
+    password1: "",
+    agree: false,
+  });
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+    // final validation
+    if (!formData.first_name) return alert("Enter first_name");
+    if (!formData.last_name) return alert("Enter last_name");
+    if (!formData.username) return alert("Enter username");
+    if (!formData.email) return alert("Enter email");
+    if (!formData.phone) return alert("Enter phone");
+    if (!formData.country) return alert("Enter country");
+    if (!formData.currency) return alert("Enter currency");
+    if (!formData.Account_Type) return alert("Enter account Type");
+    if (!formData.pin) return alert("Enter pin");
+    if (!formData.agree) return alert("You must agree to the terms");
+    if (formData.password !== formData.password1)
+      return alert("Passwords do not match");
 
-  // final validation
-  if (!formData.first_name) {
-    alert("Enter first_name");
-    return;
-  }
-  if (!formData.last_name) {
-    alert("Enter last_name");
-    return;
-  }
-  if (!formData.username) {
-    alert("Enter username");
-    return;
-  }
-  if (!formData.email) {
-    alert("Enter email");
-    return;
-  }
-  if (!formData.phone) {
-    alert("Enter phone");
-    return;
-  }
-  if (!formData.country) {
-    alert("Enter country");
-    return;
-  }
-  if (!formData.currency) {
-    alert("Enter currency");
-    return;
-  }
-  if (!formData.Account_Type) {
-    alert("Enter account Type");
-    return;
-  }
-  if (!formData.pin) {
-    alert("Enter pin");
-    return;
-  }
-  if (!formData.agree) {
-    alert("You must agree to the terms");
-    return;
-  }
+    // Map frontend keys to Django model fields
+    const payload = {
+      first_name: formData.first_name,
+      last_name: formData.last_name,
+      middle_name: formData.middle_name,
+      username: formData.username,
+      email: formData.email,
+      phone: formData.phone,
+      country: formData.country,
+      currency: formData.currency,
+      account_type: formData.Account_Type, // matches Django field
+      pin: formData.pin,
+      password: formData.password,
+      agreed_terms: formData.agree, // matches Django field
+    };
 
-  if (formData.password !== formData.password1) {
-    alert("Passwords do not match");
-    return;
-  }
+    try {
+      const res = await fetch("https://geochain.app/apps/api/save/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-  try {
-    const res = await fetch("https://your-backend-api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+      const data = await res.json();
 
-    const data = await res.json();
+      if (!res.ok) {
+        alert(data.message || "Registration failed");
+        return;
+      }
 
-    if (!res.ok) {
-      alert(data.message || "Registration failed");
-      return;
+      setMessage(true);
+      setTimeout(() => {
+        setMessage(false);
+      }, 5000);
+      // Optional: reset form or redirect
+      setFormData({
+        first_name: "",
+        last_name: "",
+        middle_name: "",
+        username: "",
+        email: "",
+        phone: "",
+        country: "",
+        currency: "",
+        Account_Type: "",
+        pin: "",
+        password: "",
+        password1: "",
+        agree: false,
+      });
+      setAcreateaccount("Personal");
+    } catch (err) {
+      alert("Server error");
+      console.error(err);
     }
-
-    alert("Account created successfully!");
-  } catch (err) {
-    alert("Server error");
-  }
-};
-
-
-
+  };
 
   return (
     <Craeteaccount>
@@ -202,6 +179,14 @@ const handleSubmit = async (e) => {
 
         <div className="seconds">
           <form action="" onSubmit={handleSubmit}>
+            {message && (
+              <p className="messageshow">
+                Your registration details have been submitted successfully and
+                are currently under review. You will be notified once your
+                account is ready to use."
+              </p>
+            )}
+
             <p>Create Account</p>
 
             <div className="infosslide">
@@ -259,7 +244,9 @@ const handleSubmit = async (e) => {
                       name="first_name"
                       id="first_name"
                       value={formData.first_name}
-                      onChange={(e) =>  setFormData({...formData, first_name: e.target.value,})}
+                      onChange={(e) =>
+                        setFormData({ ...formData, first_name: e.target.value })
+                      }
                       placeholder="John "
                       required
                     />
@@ -271,7 +258,9 @@ const handleSubmit = async (e) => {
                       name="last_name"
                       id="last_name"
                       value={formData.last_name}
-                      onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, last_name: e.target.value })
+                      }
                       placeholder="Smith"
                       required
                     />
@@ -283,7 +272,12 @@ const handleSubmit = async (e) => {
                       name="middle_name"
                       id="middle_name"
                       value={formData.middle_name}
-                      onChange={(e) => setFormData({ ...formData, middle_name: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          middle_name: e.target.value,
+                        })
+                      }
                       placeholder="Stone"
                     />
                   </div>
@@ -294,7 +288,9 @@ const handleSubmit = async (e) => {
                       name="username"
                       id="username"
                       value={formData.username}
-                      onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, username: e.target.value })
+                      }
                       placeholder="johnsmith232"
                       required
                     />
@@ -342,7 +338,9 @@ const handleSubmit = async (e) => {
                       name="email"
                       id="email"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       placeholder="johnsmile@example.com "
                       required
                     />
@@ -354,23 +352,25 @@ const handleSubmit = async (e) => {
                       name="phone"
                       id="phone"
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
                       placeholder="+1 (234) 567-8990 "
                       required
                     />
                   </div>
                   <div>
                     <label htmlFor="last_name">Country *</label>
-                    <select onChange={(e) => setFormData({ ...formData, country: e.target.value })} required>
-                      <option
-                        
-                        value="country"
-                      >
-                        Select country
-                      </option>
-                      {Countries.map((country) => (
-                        <option key={country} value={country}>
-                          {country}
+                    <select
+                      onChange={(e) =>
+                        setFormData({ ...formData, country: e.target.value })
+                      }
+                      required
+                    >
+                      <option value="country">Select country</option>
+                      {Object.entries(Countries).map(([key, value]) => (
+                        <option key={key} value={value}>
+                          {value}
                         </option>
                       ))}
                     </select>
@@ -419,17 +419,13 @@ const handleSubmit = async (e) => {
                 <div className="formespersonal">
                   <div>
                     <label htmlFor="last_name">Currency *</label>
-                    <select   onChange={(e) =>
-    setFormData({ ...formData, currency: e.target.value })
-  }
-  required>
-                      <option
-                       
-                        value="currency"
-                        disabled hidden
-                      >
-                       Currency
-                      </option>
+                    <select
+                      onChange={(e) =>
+                        setFormData({ ...formData, currency: e.target.value })
+                      }
+                      required
+                    >
+                      <option value="currency">Currency</option>
                       {currencies.map((currency) => (
                         <option key={currency} value={currency}>
                           {currency}
@@ -440,15 +436,16 @@ const handleSubmit = async (e) => {
 
                   <div>
                     <label htmlFor="last_name">Account Type * *</label>
-                    <select   onChange={(e) =>
-    setFormData({ ...formData, Account_Type: e.target.value })
-  }
-  required>
-                      <option
-                        
-                        value="Account_Type"
-                        disabled hidden
-                      >
+                    <select
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          Account_Type: e.target.value,
+                        })
+                      }
+                      required
+                    >
+                      <option value="Account_Type">
                         Select Account Type *
                       </option>
                       {accountTypes.map((Account_Type) => (
@@ -466,9 +463,9 @@ const handleSubmit = async (e) => {
                       name="pin"
                       id="pin"
                       value={formData.pin}
-  onChange={(e) =>
-    setFormData({ ...formData, pin: e.target.value })
-  }
+                      onChange={(e) =>
+                        setFormData({ ...formData, pin: e.target.value })
+                      }
                       placeholder="Pin "
                       required
                     />
@@ -506,50 +503,64 @@ const handleSubmit = async (e) => {
                   <p className="mytop">Security Setup</p>
                   <span>Secure your account</span>
                 </div>
-            <div className="formespersonal">
-                <div>
-                  <label htmlFor="last_name">Password *</label>
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    value={formData.password}
-                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    placeholder="Password "
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="Confirm_Password">Confirm Password *</label>
-                  <input
-                    type="password"
-                    name="password1"
-                    id="password1"
-                    value={formData.password1}
-                      onChange={(e) => setFormData({ ...formData, password1: e.target.value })}
-                    placeholder="Confirm your Password "
-                    required
-                  />
-                </div>
+                <div className="formespersonal">
+                  <div>
+                    <label htmlFor="last_name">Password *</label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      value={formData.password}
+                      onChange={(e) =>
+                        setFormData({ ...formData, password: e.target.value })
+                      }
+                      placeholder="Password "
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="Confirm_Password">Confirm Password *</label>
+                    <input
+                      type="password"
+                      name="password1"
+                      id="password1"
+                      value={formData.password1}
+                      onChange={(e) =>
+                        setFormData({ ...formData, password1: e.target.value })
+                      }
+                      placeholder="Confirm your Password "
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="agreedtoterm">
-                  <div><input type="checkbox" name="agree" id="agree"
-                  checked={formData.agree}
-  onChange={(e) =>
-    setFormData({ ...formData, agree: e.target.checked })
-  }
-                  /></div>
-                  <p>I agree to the <span>Terms of Service</span> and <span>Privacy Policy</span></p>
+                  <div>
+                    <input
+                      type="checkbox"
+                      name="agree"
+                      id="agree"
+                      checked={formData.agree}
+                      onChange={(e) =>
+                        setFormData({ ...formData, agree: e.target.checked })
+                      }
+                    />
+                  </div>
+                  <p>
+                    I agree to the <span>Terms of Service</span> and{" "}
+                    <span>Privacy Policy</span>
+                  </p>
                 </div>
 
-
                 <div className="btn1">
-                  <button type="button" onClick={() => setAcreateaccount("Account")}>
+                  <button
+                    type="button"
+                    onClick={() => setAcreateaccount("Account")}
+                  >
                     Previous
                   </button>
                   {/* <button onClick={() => setAcreateaccount("Security")}>Next</button> */}
-                  <button type="submit">Regiester</button>
+                  <button type="submit">Register</button>
                 </div>
 
                 <p className="alreadymemeber">

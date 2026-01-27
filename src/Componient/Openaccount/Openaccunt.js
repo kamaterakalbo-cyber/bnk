@@ -96,6 +96,7 @@ font-family: "Zalando Sans Expanded", sans-serif;
 .seconds{
     flex: 1;
     padding: 90px 20px;
+    /* position: relative; */
 }
 
 
@@ -283,6 +284,17 @@ select {
 
 
 
+.messageshow{
+      background-color: #d4edda; 
+    padding: 8px 8px;
+    width: fit-content;
+    margin-top: -100px;
+    position: fixed;
+    color: #155724; 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
 
 
 
@@ -303,6 +315,8 @@ select {
         width: 100%;
         
     }
+
+
     
 }
 

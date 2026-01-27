@@ -204,37 +204,91 @@ const Dashbaord = () => {
             </p>
           </div>
           <div>
-            <span onClick={() => (window.location.href = "/transaction")}>
+            <span
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/transaction";
+                }, 2000);
+              }}
+            >
               <TbTransactionDollar />
             </span>
-            <p onClick={() => (window.location.href = "/transaction")}>
+            <p
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/transaction";
+                }, 2000);
+              }}
+            >
               Transactions
             </p>
           </div>
           <div>
             <span
-              onClick={() => (window.location.href = "/overdraft-protection")}
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/overdraft-protection";
+                }, 2000);
+              }}
             >
               <TbShieldDollar />
             </span>
-            <p onClick={() => (window.location.href = "/overdraft-protection")}>
+            <p
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/overdraft-protection";
+                }, 2000);
+              }}
+            >
               Overdraft Protection
             </p>
           </div>
 
           <div>
-            <span onClick={() => (window.location.href = "/find-atm")}>
+            <span
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/find-atm";
+                }, 2000);
+              }}
+            >
               <FaLocationDot />
             </span>
-            <p onClick={() => (window.location.href = "/find-atm")}>
+            <p
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/find-atm";
+                }, 2000);
+              }}
+            >
               ATM & Cast Deposit Map
             </p>
           </div>
           <div>
-            <span onClick={() => (window.location.href = "/contactus")}>
+            <span
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/contactus";
+                }, 2000);
+              }}
+            >
               <FiHelpCircle />
             </span>
-            <p onClick={() => (window.location.href = "/contactus")}>
+            <p
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/contactus";
+                }, 2000);
+              }}
+            >
               Get Help
             </p>
           </div>

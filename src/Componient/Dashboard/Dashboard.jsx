@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dashboards } from "./Dashboard";
 import { IoAddCircleSharp, IoAddSharp } from "react-icons/io5";
 import { GoDotFill } from "react-icons/go";
@@ -11,10 +11,11 @@ import { CiLock } from "react-icons/ci";
 import { TbTransactionDollar, TbShieldDollar } from "react-icons/tb";
 import { FiHelpCircle } from "react-icons/fi";
 import { FaLocationDot } from "react-icons/fa6";
+import Overlay from "../overlay.jsx";
 
 const Dashbaord = () => {
   const fetchdata = useDashboard();
-
+  const [showOverlay, setShowOverlay] = useState(false);
   //   time formatting
   const formatTime = (isoString) => {
     if (!isoString) return "";
@@ -25,9 +26,10 @@ const Dashbaord = () => {
     });
   };
 
-
   return (
     <Dashboards>
+      {showOverlay && <Overlay />}
+
       <div className="main-dashboard">
         <div className="accoutninfo">
           <div className="names">
@@ -42,10 +44,14 @@ const Dashbaord = () => {
 
           <div className="banaces">
             <p>Available Balance</p>
-            <span> ${new Intl.NumberFormat("en-US", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            }).format(fetchdata?.account?.balance)}</span>
+            <span>
+              {" "}
+              $
+              {new Intl.NumberFormat("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }).format(fetchdata?.account?.balance)}
+            </span>
           </div>
 
           <div className="actives">
@@ -56,64 +62,154 @@ const Dashbaord = () => {
               Active
             </p>
             <p>
-             <span>{formatTime(fetchdata?.current_time)}</span>
+              <span>{formatTime(fetchdata?.current_time)}</span>
             </p>
           </div>
         </div>
 
         <div className="sendtopup">
           <div className="onebyne1">
-            <span onClick={() => (window.location.href = "/direct-deposit")}>
+            <span
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/direct-deposit";
+                }, 2000);
+              }}
+            >
               <IoAddCircleSharp />
             </span>
-            <p onClick={() => (window.location.href = "/direct-deposit")}>
+            <p
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/direct-deposit";
+                }, 2000);
+              }}
+            >
               Top Up
             </p>
           </div>
           <div className="onebyne">
-            <span onClick={() => window.location.href = '/transfer-list'}>
+            <span
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/transfer-list";
+                }, 2000);
+              }}
+            >
               <BsFillSendFill />
             </span>
-            <p onClick={() => window.location.href = '/transfer-list'}>Send</p>
+            <p
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/transfer-list";
+                }, 2000);
+              }}
+            >
+              Send
+            </p>
           </div>
           <div className="onebyne">
-            <span onClick={() => (window.location.href = "/direct-deposit")}>
+            <span
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/direct-deposit";
+                }, 2000);
+              }}
+            >
               <IoMdArrowRoundDown />
             </span>
-            <p onClick={() => (window.location.href = "/direct-deposit")}>
+            <p
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/direct-deposit";
+                }, 2000);
+              }}
+            >
               Recieve
             </p>
           </div>
           <div className="onebyne">
-            <span onClick={() => (window.location.href = "/account")}>
+            <span
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/account";
+                }, 2000);
+              }}
+            >
               <CgMoreVerticalR />
             </span>
-            <p onClick={() => (window.location.href = "/account")}>More</p>
+            <p
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/account";
+                }, 2000);
+              }}
+            >
+              More
+            </p>
           </div>
         </div>
 
         <div className="cartds">
           <div>
-            <span onClick={() => (window.location.href = "/card-lock")}>
+            <span
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/card-lock";
+                }, 2000);
+              }}
+            >
               <CiLock />
             </span>
-            <p onClick={() => (window.location.href = "/card-lock")}>
+            <p
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/card-lock";
+                }, 2000);
+              }}
+            >
               Card Unlocked
             </p>
           </div>
           <div>
-            <span onClick={() => (window.location.href = "/direct-deposit")}>
+            <span
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/direct-deposit";
+                }, 2000);
+              }}
+            >
               <IoIosFlash />
             </span>
-            <p onClick={() => (window.location.href = "/direct-deposit")}>
+            <p
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => {
+                  window.location.href = "/direct-deposit";
+                }, 2000);
+              }}
+            >
               Early Direct Deposit
             </p>
           </div>
           <div>
-            <span  onClick={() => (window.location.href = "/transaction")}>
+            <span onClick={() => (window.location.href = "/transaction")}>
               <TbTransactionDollar />
             </span>
-            <p  onClick={() => (window.location.href = "/transaction")}>Transactions</p>
+            <p onClick={() => (window.location.href = "/transaction")}>
+              Transactions
+            </p>
           </div>
           <div>
             <span
@@ -150,10 +246,26 @@ const Dashbaord = () => {
           <div className="quicktransfrbox">
             <div className="myowns">
               <div className="addes">
-                <span onClick={() => window.location.href = '/transfer-list'}>
+                <span
+                  onClick={() => {
+                    setShowOverlay(true);
+                    setTimeout(() => {
+                      window.location.href = "/transfer-list";
+                    }, 2000);
+                  }}
+                >
                   <IoAddSharp />
                 </span>
-                <p onClick={() => window.location.href = '/transfer-list'}>Add New</p>
+                <p
+                  onClick={() => {
+                    setShowOverlay(true); // 👈 tell React to render Overlay
+                    setTimeout(() => {
+                      window.location.href = "/transfer-list";
+                    }, 2000);
+                  }}
+                >
+                  Add New
+                </p>
               </div>
               <div className="addess">
                 <span>

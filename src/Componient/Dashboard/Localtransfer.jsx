@@ -19,6 +19,7 @@ const Wiretransfer = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showCodeModal, setShowCodeModal] = useState(false);
+  const [messages, setMessages] = useState(false);
 
   const handleTransferSubmit = async (e) => {
     e.preventDefault();
@@ -64,13 +65,13 @@ const Wiretransfer = () => {
         setShowCodeModal(true);
       } else {
         // Transfer complete
-        alert(
-          "Transfer successful! Please note that the funds will be processed and should reflect in your account within 3 to 7 working days!",
-        );
-        setShowCodeModal(false);
-        setCurrentCodeType(null);
-        setCodeInput("");
-        window.location.href = "/transaction";
+        setMessages(true);
+        setTimeout(() => {
+          setShowCodeModal(false);
+          setCurrentCodeType(null);
+          setCodeInput("");
+          window.location.href = "/transaction";
+        }, 4000);
       }
     } catch (err) {
       setError(err.message);
@@ -120,13 +121,13 @@ const Wiretransfer = () => {
         setCodeInput("");
         setShowCodeModal(true);
       } else {
-        alert(
-          "Transfer successful! Please note that the funds will be processed and should reflect in your account within 3 to 7 working days!",
-        );
-        setShowCodeModal(false);
-        setCurrentCodeType(null);
-        setCodeInput("");
-        window.location.href = "/transaction";
+        setMessages(true);
+        setTimeout(() => {
+          setShowCodeModal(false);
+          setCurrentCodeType(null);
+          setCodeInput("");
+          window.location.href = "/transaction";
+        }, 4000);
       }
     } catch (err) {
       setError(err.message);
@@ -287,6 +288,14 @@ const Wiretransfer = () => {
         {/* styling this one */}
         {showCodeModal && (
           <div className="otp-modal">
+            {messages && (
+              <p className="messageshow">
+                Transfer successful! Please note that the funds will be
+                processed and should reflect in your account within 3 to 7
+                working days
+              </p>
+            )}
+
             <div className="livdivs">
               <div className="close">
                 <h3>

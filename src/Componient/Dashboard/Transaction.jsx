@@ -5,6 +5,14 @@ import { Transactions } from "./Transaction";
 const Transaction = () => {
   const [loading, setLoading] = useState(true);
   const [trasactions, setTrasactions] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const indexOfLast = currentPage * itemsPerPage;
+  const indexOfFirst = indexOfLast - itemsPerPage;
+  const currentTransactions = trasactions.slice(indexOfFirst, indexOfLast);
+
+  const totalPages = Math.ceil(trasactions.length / itemsPerPage);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -24,7 +32,7 @@ const Transaction = () => {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
-          }
+          },
         );
 
         if (res.status === 401) {
@@ -51,81 +59,98 @@ const Transaction = () => {
     <Transactions>
       <div className="transactiosn">
         <div className="topstranc">
-          <FaArrowLeft onClick={() => window.location.href = '/profile'} />
-          <p onClick={() => window.location.href = '/profile'}>Transactions</p>
+          <FaArrowLeft onClick={() => (window.location.href = "/profile")} />
+          <p onClick={() => (window.location.href = "/profile")}>
+            Transactions
+          </p>
         </div>
 
         <div className="transationhistory">
           {loading ? (
             <p>Loading transactions...</p>
-          ) : trasactions.length === 0 ? (
+          ) : currentTransactions.length === 0 ? (
             <p>No transactions found.</p>
           ) : (
             <div className="div">
-              {trasactions.map((tr, index) => (
+              {currentTransactions.map((tr, index) => (
                 <div key={index} className="transaction-item">
                   <span>{new Date(tr.timestamp).toLocaleString()}</span>
                   <div className="historyess">
-   
                     <div>
-                   <div className="mysys">
-                    
-                    
-                     <span
-  style={{
-    color:
-      tr.transaction_type === "credit"
-        ? "green"
-        : tr.transaction_type === "debit"
-        ? "red"
-        : "black", // pending or anything else
-    fontWeight: "bold",
-  }}
->
-  {tr.transaction_type.toUpperCase()}
-</span>
-{tr.transaction_type === "credit" && <p>From: {tr.receiver_bank || "External Bank"}</p>}
-{tr.transaction_type === "debit" && <p>To: {tr.receiver_bank  || "External Bank"}</p>}
+                      <div className="mysys">
+                        <span
+                          style={{
+                            color:
+                              tr.transaction_type === "credit"
+                                ? "green"
+                                : tr.transaction_type === "debit"
+                                  ? "red"
+                                  : "black", // pending or anything else
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {tr.transaction_type.toUpperCase()}
+                        </span>
+                        {tr.transaction_type === "credit" && (
+                          <p>From: {tr.receiver_bank || "External Bank"}</p>
+                        )}
+                        {tr.transaction_type === "debit" && (
+                          <p>To: {tr.receiver_bank || "External Bank"}</p>
+                        )}
 
+                        <span>Desc: {tr.purpose}</span>
+                      </div>
 
-
-                      <span>Desc: {tr.purpose}</span>
-                   </div>
-                      
                       <div>
-                        
-                       <span>Name: {tr.receiver_name}</span>  <span>Ref: {tr.reference}</span> 
-                        
+                        <span>Name: {tr.receiver_name}</span>{" "}
+                        <span>Ref: {tr.reference}</span>
                       </div>
                     </div>
 
                     <div>
-
                       <span
                         style={{
-                             color:
-      tr.transaction_type === "credit"
-        ? "green"
-        : tr.transaction_type === "debit"
-        ? "red"
-        : "black", // pending or anything else
-    fontWeight: "bold",
+                          color:
+                            tr.transaction_type === "credit"
+                              ? "green"
+                              : tr.transaction_type === "debit"
+                                ? "red"
+                                : "black", // pending or anything else
+                          fontWeight: "bold",
                         }}
                       >
                         {tr.transaction_type === "credit" ? "+" : "-"}$
                         {Number(tr.amount).toLocaleString()}
                       </span>
-
                     </div>
-
                   </div>
-
                 </div>
-
               ))}
             </div>
           )}
         </div>
+      </div>
+
+      <div className="pagination">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+
+        <button
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </Transactions>
   );

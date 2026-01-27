@@ -47,6 +47,29 @@ font-size: 12px;
 }
 
 
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-block: 20px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #155724;
+  color: white;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
 @media screen and (max-width: 925px) {
     
     .transactiosn{

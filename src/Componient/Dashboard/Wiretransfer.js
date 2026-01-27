@@ -5,12 +5,16 @@ import styled from "styled-components";
 
 export const WiretransferWrapper = styled.main`
 font-family: "Zalando Sans Expanded", sans-serif;
+background-color: lightgray;
 .profilewrapper{
-    width: 80%;
+    width: 40%;
     margin: auto;
     display: flex;
     flex-direction: column;
+     
     gap: 10px;
+    
+    /* box-shadow: 2px 2px 14px; */
 }
 
 .backes{
@@ -33,6 +37,11 @@ form{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    box-shadow: 1px 1px 10px;
+    padding: 20px 20px;
+    border-radius: 8px;
+        background-color: white;
+        margin-bottom: 10px;
 }
 form div{
    padding: 7px 0px;
@@ -71,34 +80,64 @@ label{
 }
 
 
+
 .otp-modal {
     position: fixed;
-     border: 1px solid yellow;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
     width: fit-content;
-    background-color: lightgray;
+    background-color: white;
     padding: 20px 20px;
     border-radius: 8px;
+    z-index: 10000;
+     width: 40%;
+}
+.livdivs{
+    border: 1px solid lightgray;
+    padding: 20px;
+     border-radius: 8px;
 }
 
 .close{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
 }
 .close p{
     color: red;
     font-size: 25px;
     cursor: pointer;
+    margin-top: -30px;
+    background-color: white;
 }
 
 .otp-modal h3{
-    font-size: 15px;
+    font-size: 14px;
     margin-block:5px;
+    font-weight: 500;
+    margin-top: -30px;
+    background-color: white;
    
+}
+
+h4{
+    font-size: 12px;
+    font-weight: 450;
+    margin-top: 20px;
+}
+
+
+.myotpss{
+    box-shadow: 0px 0px 0px;
+    
+    padding: 0px;
+}
+
+.myotpss input{
+    margin-top: 10px;
 }
 
 .mysumit{
@@ -111,6 +150,7 @@ label{
     color: white;
         font-family: "Zalando Sans Expanded", sans-serif;
     font-size: 16px;
+    margin-top: 10px;
     border-radius: 8px;
 }
 .cancels{
@@ -126,6 +166,34 @@ label{
     border-radius: 8px;
 }
 
+h3 >span{
+    color:  #27324c;
+    font-size: 13px;
+    font-weight: 600;
+}
+h4 >span{
+    color:  #27324c;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.conatcoffier{
+    font-weight: 500;
+    font-size: 12px;
+    color:  red;
+    /* text-align: center; */
+    margin-top: 20px;
+}
+
+.conatcoffier span{
+    color: black;
+}
+
+
+
+
+
 
 @media screen and (max-width: 925px) {
    .profilewrapper{
@@ -136,6 +204,11 @@ label{
 
 form div{
     width: 100%;
+}
+
+
+.otp-modal {
+   width: 95%;
 }
 }
 

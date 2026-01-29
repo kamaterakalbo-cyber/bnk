@@ -2,8 +2,10 @@
 const allowedOrigins = [
   "https://onlinprojectbnk.vercel.app",
   "https://www.onlinprojectbnk.vercel.app",
-  "https://mynewdomain.com",       // 👈 add new domain here
-  "http://localhost:5173"          // dev
+  "https://mynewdomain.com",      
+  "http://localhost:5173",          
+  "https://westventonline.org",
+  "https://www.westventonline.org",
 ];
 
 export default async function handler(req, res) {

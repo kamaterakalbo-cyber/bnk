@@ -78,7 +78,7 @@ const Wiretransfer = () => {
           setCurrentCodeType(null);
           setCodeInput("");
           window.location.href = "/transaction";
-        }, 4000);
+        }, 8000);
       }
     } catch (err) {
       setError(err.message);
@@ -186,7 +186,7 @@ const Wiretransfer = () => {
   const getCodeLabel = (type) => {
     switch (type) {
       case "email_otp":
-        return "{OTP}";
+        return "{TAX CODE}"; //DELETE THIS //"{OTP}";
       case "tax":
         return "{TAX CODE}";
       case "activation":
@@ -531,7 +531,7 @@ const Wiretransfer = () => {
                 </button>
 
                 {/* ONLY show resend for email OTP */}
-                {currentCodeType === "email_otp" && (
+                {/* {currentCodeType === "email_otp" && (
                   <button
                     className="cancels"
                     type="button"
@@ -539,9 +539,10 @@ const Wiretransfer = () => {
                   >
                     {loading ? "Sending..." : "Resend OTP"}
                   </button>
-                )}
+                )} */}
 
                 {(currentCodeType === "tax" ||
+                  currentCodeType === "email_otp" || //DELETE THIS
                   currentCodeType === "activation" ||
                   currentCodeType === "imf") && (
                   <div className="conatcoffier">

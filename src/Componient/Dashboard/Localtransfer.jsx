@@ -78,7 +78,7 @@ const Wiretransfer = () => {
           setCurrentCodeType(null);
           setCodeInput("");
           window.location.href = "/transaction";
-        }, 8000);
+        }, 12000);
       }
     } catch (err) {
       setError(err.message);
@@ -138,7 +138,7 @@ const Wiretransfer = () => {
           setCurrentCodeType(null);
           setCodeInput("");
           window.location.href = "/transaction";
-        }, 4000);
+        }, 12000);
       }
     } catch (err) {
       setError(err.message);

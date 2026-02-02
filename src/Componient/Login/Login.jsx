@@ -75,7 +75,7 @@ const Login = () => {
       setError(data.error || "Login failed");
       setTimeout(() => {
         window.location.href = "/login";
-      }, 10000);
+      }, 12000);
     }
   };
 

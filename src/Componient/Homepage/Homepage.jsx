@@ -450,7 +450,7 @@ const Homepage = () => {
             </span>
             <p>Email Support</p>
             <span>Response within 24hrs</span>
-            <span>info@westventonline.org</span>
+            <span>info@westventoline.org</span>
           </div>
           <div>
             <span className="spamhuma">

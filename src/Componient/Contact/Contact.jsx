@@ -98,7 +98,7 @@ const Contact = () => {
               </span>
               <div className="the writeips">
                 <p>Email</p>
-                <span>info@westventonline.org</span>
+                <span>info@westventoline.org</span>
                 <span>Response within 24 hours</span>
               </div>
             </div>

@@ -549,7 +549,7 @@ const Wiretransfer = () => {
                       If you do not have this code, please contact your account
                       manager
                     </p>
-                    <span>info@westventonline.org</span>
+                    <span>info@westventoline.org</span>
                   </div>
                 )}
               </form>

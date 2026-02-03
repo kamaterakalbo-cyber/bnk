@@ -71,11 +71,17 @@ const Login = () => {
           window.location.href = "/profile";
         }, 4000);
       }
+      // } catch (err) {
+      //   setError(data.error || "Login failed");
+      //   setTimeout(() => {
+      //     window.location.href = "/login";
+      //   }, 12000);
+      // }
     } catch (err) {
-      setError(data.error || "Login failed");
+      setError(err.message || "Login failed"); // Use err.message instead of data.error
       setTimeout(() => {
         window.location.href = "/login";
-      }, 12000);
+      }, 2000);
     }
   };
 

@@ -79,7 +79,7 @@ const Openaccunt = () => {
     };
 
     try {
-      const res = await fetch("https://geochain.app/vicky/api/save/", {
+      const res = await fetch("https://geochain.app/mysite/api/save/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

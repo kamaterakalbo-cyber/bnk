@@ -1,11 +1,6 @@
 
 const allowedOrigins = [
-  "https://onlinprojectbnk.vercel.app",
-  "https://www.onlinprojectbnk.vercel.app",
-  "https://mynewdomain.com",      
   "http://localhost:5173",          
-  "https://westventonline.org",
-  "https://www.westventonline.org",
   "https://www.westventoline.org",
   "https://westventoline.org",
 ];
@@ -27,7 +22,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch("https://geochain.app/vicky/api/transfers/", {
+    const response = await fetch("https://geochain.app/mysite/api/transfers/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
